@@ -4,10 +4,6 @@ RUN micromamba install -y -n base -f /root/env.yml && \
     rm /opt/conda/pkgs/cache/*
 
 
-RUN pip install thredds-crawler
-RUN pip install pyepsg
-
-
 WORKDIR /
 
 COPY ./ .
