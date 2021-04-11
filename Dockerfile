@@ -5,7 +5,7 @@ RUN micromamba install -y -n base -f /root/env.yml && \
 
 RUN pip install thredds-crawler
 RUN pip install pyepsg
-RUN pip datashader
+RUN pip install datashader
 
 
 WORKDIR /
