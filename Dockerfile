@@ -11,14 +11,6 @@ RUN pip install confuse
 RUN pip install datashader
 
 
-WORKDIR /vulcan
-
-COPY ./ .
-COPY ./config.yaml /root/.config/vulcan/config.yaml
-
-
-CMD [ "python", "./main.py" ]
-
 
 ARG NB_USER
 ARG NB_UID
