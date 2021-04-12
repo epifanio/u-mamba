@@ -5,12 +5,6 @@ COPY env.yml /root/env.yml
 RUN micromamba install -y -n base -f /root/env.yml && \
     rm /opt/conda/pkgs/cache/*
 
-RUN pip install thredds-crawler
-RUN pip install pyepsg
-RUN pip install confuse
-RUN pip install datashader
-
-
 
 ARG NB_USER
 ARG NB_UID
@@ -22,4 +16,10 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 WORKDIR ${HOME}
+
+RUN pip install thredds-crawler
+RUN pip install pyepsg
+RUN pip install confuse
+RUN pip install datashader
+
 USER ${USER}
