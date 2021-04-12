@@ -1,0 +1,53 @@
+{% extends "shared/base.html" %}
+{% block content %}
+
+<p class="p1">Dear Vulcan User,</p>
+<br>
+<p class="p1">New simulation data has been added on the <a href="https://thredds.met.no/thredds/catalog/metusers/heikok/ash/krisuvik/catalog.html">OpenDAP server</a>  for the eemep model run:</p>
+
+<br>
+<a href="{{nc_url}}.html"> <b>{{ simulation_run }}</b></a>
+<br>
+
+
+{% if data|length > 0 %}
+
+<br>
+<p class="p1">The produced dataset reported a presence of an ash-column exceeding 0.2 [g/m<sup>2</sup>], over the Norwegian territory, for the following time slice: </p>
+<br>
+    <p>
+      {% for record in data %}
+      <p class="p1"> <b>Time-slice: {{record['datetime']}}</b></p>
+      <UL Type="square">
+          <li>min: {{record['min']}}, [ &mu;g/m<sup>2</sup> ]
+          <li>max: {{record['max']}}, [ &mu;g/m<sup>2</sup> ]
+          <li>mean: {{record['mean']}}, [ &mu;g/m<sup>2</sup> ]
+          <li>cells: {{record['cells']}}, [ non-null cell-count ]
+          <li>location: {{record['location'][0]}}&deg;E,  {{record['location'][1]}}&deg;N 
+          <li><a href="{{record['geojson']}}"> Spatial extent (Geojson vector feature - file)</a>
+          <li><a href="{{record['gist']}}"> Spatial extent (Geojson vector feature - online gist)</a>
+      </UL>
+      {% if record['image'] is not none %}
+      <img src="{{record['image']}}" alt="image alt text" />
+      {% endif %}
+      {% endfor %}
+    </p>
+<br>
+{% endif %}
+
+<br>
+
+{% if data|length == 0 %}
+<p class="p1">The produced dataset did not report presence of ash-column exceeding 0.2 [g/m<sup>2</sup>] over the Norwegian territory.</p>
+{% endif %}
+
+{% if image_sequence|length > 0 %}
+<p class="p1">{{ simulation_run }} time-slice image sequence:</p>
+    {% for image in image_sequence %}
+        <img src="{{image}}" alt="image alt text" />
+    {% endfor %}
+{% endif %}
+
+<p class="p1">  </p>
+<br>
+{% endblock %}
